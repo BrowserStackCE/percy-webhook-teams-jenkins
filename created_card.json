@@ -1,0 +1,30 @@
+{
+    "@type": "MessageCard",
+    "@context": "https://schema.org/extensions",
+    "summary": "Percy Details",
+    "themeColor": "9e66bf",
+    "title": "Percy Build Card",
+    "sections": [
+        {
+            "activitySubtitle": "Time",
+            "facts": [
+                {
+                    "name": "Branch:",
+                    "value": "xxxx"
+                }
+            ]
+        }
+    ],
+    "potentialAction": [
+        {
+            "@type": "OpenUri",
+            "name": "Review Snapshots",
+            "targets": [
+                {
+                    "os": "default",
+                    "uri": "http://..."
+                }
+            ]
+        }
+    ]
+}

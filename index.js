@@ -1,7 +1,7 @@
 const https = require('https')
 var newBuildCard = require('./new_build_card.json')
 var approvedCard = require('./approved_card.json')
-
+var createdCard = require('./created_card.json')
 
 var percyRequest = JSON.parse(process.env.data)
 var teamsIncomingWebhook = process.env.TEAMS_INCOMING_WEBHOOK
@@ -19,8 +19,8 @@ if (teamsIncomingWebhook) {
     var domainLastIndex = teamsIncomingWebhook.indexOf('/')
     webhookDomain = teamsIncomingWebhook.substring(0, domainLastIndex)
     webhookPath = teamsIncomingWebhook.substring(domainLastIndex)
-    console.log("Webhook Domain = "+webhookDomain)
-    console.log("Webhook Path = "+webhookPath)
+    console.log("Webhook Domain = " + webhookDomain)
+    console.log("Webhook Path = " + webhookPath)
 }
 
 switch (percyRequest.data.attributes.event) {
@@ -49,6 +49,17 @@ switch (percyRequest.data.attributes.event) {
         messageConfig['sections'][0]['facts'][1]['value'] = attributes['pull-request-title']
         messageConfig['potentialAction'][0]['targets'][0]['uri'] = attributes['web-url']
         messageConfig['potentialAction'][1]['targets'][0]['uri'] = attributes['pull-request-html-url']
+        sendMessageFlag = true
+        break
+
+    case 'build_created':
+        messageConfig = createdCard;
+        var attributes = percyRequest['included'][0]['attributes']
+        messageConfig['summary'] = 'Percy Build Started'
+        messageConfig['title'] = `Build #${attributes['build-number']} started.`
+        messageConfig['sections'][0]['activitySubtitle'] = new Date(attributes['created-at']).toLocaleString("en-US", { timeZone: timezone })
+        messageConfig['sections'][0]['facts'][0]['value'] = attributes['branch']
+        messageConfig['potentialAction'][0]['targets'][0]['uri'] = attributes['web-url']
         sendMessageFlag = true
         break
 
