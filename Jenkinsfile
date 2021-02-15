@@ -1,12 +1,12 @@
 node {
-    
+
     properties([
   pipelineTriggers([
    [$class: 'GenericTrigger',
     genericVariables: [
      [key: 'data', value: '$'],
-     [key: 'TEAMS_INCOMING_WEBHOOK', defaultValue: ''],
-     [key: 'TIMEZONE', defaultValue: '']
+     [key: 'TEAMS_INCOMING_WEBHOOK', value: '$.TEAMS_INCOMING_WEBHOOK', defaultValue: ''],
+     [key: 'TIMEZONE', value: '$.TIMEZONE', defaultValue: '']
     ],
     token: 'percy_notification',
     tokenCredentialId: '',
