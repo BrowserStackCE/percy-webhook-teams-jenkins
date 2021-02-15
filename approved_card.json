@@ -1,0 +1,45 @@
+{
+    "@type": "MessageCard",
+    "@context": "https://schema.org/extensions",
+    "summary": "Percy Details",
+    "themeColor": "9e66bf",
+    "title": "Approved Card Percy",
+    "sections": [
+        {
+            "activityTitle": "Number of Visual Changes",
+            "activitySubtitle": "Time",
+            "facts": [
+                {
+                    "name": "Branch:",
+                    "value": "xxxx"
+                },
+                {
+                    "name": "Commit:",
+                    "value": "xxxx"
+                }
+            ]
+        }
+    ],
+    "potentialAction": [
+        {
+            "@type": "OpenUri",
+            "name": "View Build",
+            "targets": [
+                {
+                    "os": "default",
+                    "uri": "http://..."
+                }
+            ]
+        },
+        {
+            "@type": "OpenUri",
+            "name": "Pull Request",
+            "targets": [
+                {
+                    "os": "default",
+                    "uri": "http://..."
+                }
+            ]
+        }
+    ]
+}
