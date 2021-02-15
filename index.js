@@ -2,12 +2,27 @@ const https = require('https')
 var newBuildCard = require('./new_build_card.json')
 var approvedCard = require('./approved_card.json')
 
+
 var percyRequest = JSON.parse(process.env.data)
-console.log(JSON.stringify(percyRequest))
-var messageConfig = {}
-var sendMessageFlag = false
 var teamsIncomingWebhook = process.env.TEAMS_INCOMING_WEBHOOK
 var timezone = process.env.TIMEZONE
+// console.log(JSON.stringify(percyRequest))
+var messageConfig = {}
+var sendMessageFlag = false
+var webhookDomain = ''
+var webhookPath = ''
+
+if (teamsIncomingWebhook) {
+    if (teamsIncomingWebhook.startsWith('https://')) {
+        teamsIncomingWebhook = teamsIncomingWebhook.substring(8)
+    }
+    var domainLastIndex = teamsIncomingWebhook.indexOf('/')
+    webhookDomain = teamsIncomingWebhook.substring(0, domainLastIndex)
+    webhookPath = teamsIncomingWebhook.substring(domainLastIndex)
+    console.log("Webhook Domain = "+webhookDomain)
+    console.log("Webhook Path = "+webhookPath)
+}
+
 switch (percyRequest.data.attributes.event) {
     case 'build_approved':
         messageConfig = approvedCard;
@@ -42,11 +57,11 @@ switch (percyRequest.data.attributes.event) {
         break
 }
 
-if (sendMessageFlag) {
+if (sendMessageFlag && webhookDomain && webhookPath) {
     messageConfig = JSON.stringify(messageConfig)
     const options = {
-        hostname: 'abhidashingsinghgmailcom.webhook.office.com',
-        path: '/webhookb2/9856d0b9-5a4f-46f7-9329-6cabc9c77de9@85ec472c-93bf-420a-b399-622a6dc9e77a/IncomingWebhook/d228a0821bed4275adba0fb7a4a10e8e/6a586f48-f693-417b-ae30-6215d23646fe',
+        hostname: webhookDomain,
+        path: webhookPath,
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
