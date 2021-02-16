@@ -9,5 +9,5 @@
 
 ## Steps to run
 * Clone this repository
-* Set ```TEAMS_INCOMING_WEBHOOK``` and ```TIMEZONE``` in ```Jenkinsfile``` file.
+* Set DefaultValue for ```TEAMS_INCOMING_WEBHOOK``` and ```TIMEZONE``` in ```Jenkinsfile``` file.
 * Set ```https://<JENKINS_URL>/invoke?token=percy_notification``` in Percy Project Integration for individual projects. [Documentation](https://docs.percy.io/docs/webhooks#creating-a-webhook-configuration)
